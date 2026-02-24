@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}reMEmber{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+</head>
+<body class="app-body">
+
+    <nav class="app-navbar">
+        <a href="{% url 'menu' %}" class="nav-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </a>
+
+        <div class="nav-title">
+            {% block page_title %}Назва сторінки{% endblock %}
+        </div>
+
+    </nav>
+
+    <main class="app-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>

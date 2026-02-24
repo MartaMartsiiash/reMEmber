@@ -1,0 +1,41 @@
+{% extends 'base_app.html' %}
+
+{% block page_title %}{% if form.instance.pk %}Редагування{% else %}Новий запис{% endif %}{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+
+    <div class="note-row">
+        <div class="note-label">Настрій</div>
+        {{ form.mood }}
+    </div>
+
+    <div class="note-row">
+        <div class="note-label">Пісня</div>
+        <div class="song-inputs-container">
+            <input type="text" class="song-input" name="song_title" placeholder="Назва пісні..." value="{{ form.song_title.value|default_if_none:'' }}">
+            <input type="text" class="song-input" name="song_artist" placeholder="Виконавець..." value="{{ form.song_artist.value|default_if_none:'' }}">
+            <input type="url" class="song-input" name="song_url" placeholder="Посилання (YouTube, Spotify...)" value="{{ form.song_url.value|default_if_none:'' }}">
+        </div>
+    </div>
+
+    <div class="note-row" style="border-bottom: none; justify-content: flex-end; padding: 10px 0;">
+        <label style="color: white; font-size: 16px; display: flex; align-items: center; gap: 10px; cursor: pointer; text-shadow: 1px 1px 2px black;">
+            {{ form.is_public }} Зробити запис публічним
+        </label>
+    </div>
+
+    {{ form.text }}
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button type="submit" class="btn" style="max-width: 200px;">Зберегти</button>
+    </div>
+</form>
+
+<style>
+    textarea { width: 100%; background-color: rgba(255,255,255,0.85); border-radius: 5px; padding: 20px; min-height: 200px; margin-top: 20px; border: none; resize: none; font-size: 16px; box-sizing: border-box; }
+    select { background: transparent; border: none; color: white; font-size: 16px; flex-grow: 1; outline: none; appearance: none; }
+    select option { color: black; }
+</style>
+{% endblock %}

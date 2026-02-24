@@ -1,0 +1,73 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block page_title %}Мої пісні{% endblock %}
+
+{% block content %}
+<div class="list-headers" style="display: grid; grid-template-columns: 100px 1fr 100px; gap: 15px; padding: 0 15px; align-items: center;">
+    <span style="font-weight: bold; color: white;">Дата</span>
+    <span style="text-align: center; font-weight: bold; color: white;">Пісня та виконавець</span>
+    <span style="text-align: right; font-weight: bold; color: white;">Слухати</span>
+</div>
+
+{% for song in page_obj %}
+<div class="list-card" style="display: grid; grid-template-columns: 100px 1fr 100px; gap: 15px; align-items: center; padding: 15px; margin-bottom: 10px;">
+
+    <div style="font-size: 14px; font-weight: bold; color: #555;">
+        {% if song.note %}
+            {{ song.note.created_at|date:"d.m.y" }}
+        {% elif song.notes.all %}
+            {{ song.notes.first.created_at|date:"d.m.y" }}
+        {% else %}
+            {{ song.created_at|date:"d.m.y"|default:"22.02.26" }}
+        {% endif %}
+    </div>
+
+    <div class="list-card-content" style="text-align: center; overflow: hidden;">
+        <div class="list-card-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px; font-weight: bold; color: #000;">
+            🎵 {{ song.title|default:"Без назви" }}
+        </div>
+        <div class="list-card-subtitle" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 13px; color: #666;">
+            {{ song.artist|default:"Невідомий виконавець" }}
+        </div>
+    </div>
+
+    <div style="text-align: right;">
+        {% if song.url %}
+            <a href="{{ song.url }}" target="_blank" style="text-decoration: none; display: inline-block;">
+                <div class="btn" style="width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 14px;">
+                    ▶
+                </div>
+            </a>
+        {% else %}
+            <span style="font-size: 18px; opacity: 0.3;">🔇</span>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+    <div style="text-align: center; margin-top: 40px; color: white; opacity: 0.8; font-style: italic; text-shadow: 1px 1px 2px black;">
+        Пісень ще не додано.
+    </div>
+{% endfor %}
+
+{% if page_obj.has_other_pages %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; background-color: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="width: auto; padding: 10px 15px; font-size: 14px;">⬅️ Назад</a>
+    {% else %}
+        <div style="width: 80px;"></div>
+    {% endif %}
+
+    <span style="color: white; font-weight: bold; text-shadow: 1px 1px 2px black;">
+        Стор. {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn" style="width: auto; padding: 10px 15px; font-size: 14px;">Вперед ➡️</a>
+    {% else %}
+        <div style="width: 80px;"></div>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

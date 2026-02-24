@@ -1,0 +1,15 @@
+{% extends 'base_app.html' %}
+
+{% block page_title %}Меню{% endblock %}
+
+{% block content %}
+<div class="menu-list">
+    <a href="{% url 'notes' %}" class="menu-item">Стрічка публікацій</a>
+    <a href="{% url 'my_notes' %}" class="menu-item">Мої записи</a>
+    <a href="{% url 'add_note' %}" class="menu-item">Створити запис</a>
+    <a href="{% url 'search' %}" class="menu-item">Пошук та Цитати</a>
+    <a href="{% url 'songs' %}" class="menu-item">Мої пісні</a>
+    <a href="{% url 'statistics' %}" class="menu-item">Статистика</a>
+    <a href="{% url 'profile' %}" class="menu-item">Мій профіль</a>
+</div>
+{% endblock %}
