@@ -10,12 +10,6 @@ from .forms import SignUpForm, ProfileForm
 from django.contrib.auth.decorators import login_required
 
 
-def root_redirect(request):
-    """
-    Redirects the root URL to the login page.
-    """
-    return redirect('log_in')
-
 def signup(request):
     """
     Handle user registration.

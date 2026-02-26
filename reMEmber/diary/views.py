@@ -15,6 +15,15 @@ import io
 import base64
 
 
+def root_redirect(request):
+    """
+    Redirects the root URL to the login page.
+    """
+    return redirect('main')
+
+def main(request):
+    return render(request, 'diary/main.html')
+
 @login_required
 def menu(request):
     """

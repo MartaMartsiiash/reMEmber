@@ -61,7 +61,7 @@ class Note(models.Model):
         blank=True,
         related_name='notes'
     )
-    text = models.TextField()
+    text = models.TextField(max_length=3000)
     mood = models.ForeignKey(
         Mood,
         on_delete=models.SET_NULL,

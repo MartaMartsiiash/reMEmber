@@ -1,0 +1,43 @@
+{% extends 'base_app.html' %}
+
+{% block content %}
+<div class="about-container" style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <h1 style="color: #4e73df; text-align: center;">Про проєкт reMEmber 📖</h1>
+
+    <p style="font-size: 1.2rem; line-height: 1.6; text-align: center; color: #555;">
+        <strong>reMEmber</strong> — це твій особистий цифровий простір для збереження думок, емоцій та музичних спогадів.
+    </p>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+    <div class="features">
+        <h3 style="color: #1cc88a;">Що ти можеш тут робити?</h3>
+        <ul style="line-height: 2;">
+            <li><strong>Вести щоденник:</strong> Записуй події дня та роби їх приватними або публічними.</li>
+            <li><strong>Фіксувати настрій:</strong> Обирай емоцію дня для подальшого аналізу.</li>
+            <li><strong>Музичний супровід:</strong> Додавай пісню, яка стала саундтреком твого дня.</li>
+            <li><strong>Аналізувати:</strong> Переглядай візуальну статистику свого настрою за допомогою графіків.</li>
+        </ul>
+    </div>
+
+    <div class="tech-stack" style="background-color: #f8f9fc; padding: 20px; border-radius: 10px; margin-top: 30px;">
+        <h3 style="color: #36b9cc; margin-top: 0;">Технології проєкту:</h3>
+        <p>Цей додаток побудований на сучасному стеку Python-розробки:</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <span style="background: #e74a3b; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Django 5.1</span>
+            <span style="background: #4e73df; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Pandas</span>
+            <span style="background: #f6c23e; color: black; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Matplotlib</span>
+            <span style="background: #5a5c69; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">SQLite</span>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; text-align: center;">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'signup' %}" style="background-color: #4e73df; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">Приєднатися</a>
+            <a href="{% url 'log_in' %}" style="color: #4e73df; text-decoration: none; font-weight: bold;">Увійти</a>
+        {% else %}
+            <a href="{% url 'menu' %}" style="background-color: #1cc88a; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">До головного меню</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
