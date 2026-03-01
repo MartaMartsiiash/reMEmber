@@ -8,8 +8,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.root_redirect),
-    path('main', views.main, name='main'),
+    path('', views.main),
     path('notes/', views.notes_feed, name='notes'),
     path('note/<int:pk>/', views.note_detail, name='note_detail'),
     path('my-notes/', views.my_notes, name='my_notes'),

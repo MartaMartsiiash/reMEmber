@@ -15,13 +15,12 @@ import io
 import base64
 
 
-def root_redirect(request):
-    """
-    Redirects the root URL to the login page.
-    """
-    return redirect('main')
-
 def main(request):
+    """
+    Render the main page of the diary application.
+    """
+    if request.user.is_authenticated:
+        return redirect('notes_feed')
     return render(request, 'diary/main.html')
 
 @login_required
