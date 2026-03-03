@@ -1,0 +1,28 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block page_title %}Статистика{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <p style="color: white; text-align: center; font-style: italic; text-shadow: 1px 1px 2px black; font-size: 18px; margin-top: 40px;">
+            {{ error }}
+        </p>
+    {% else %}
+        <div class="list-card" style="display: flex; position: relative; left: 50%; transform: translateX(-50%); width: 135%; max-width: 2500px; margin: 40px 0; padding: 40px; background-color: rgba(255, 255, 255, 0.9); flex-direction: column; align-items: center; box-sizing: border-box; border-radius: 15px;">
+            <h2 style="margin-top: 0; margin-bottom: 30px; color: #111; text-transform: uppercase; letter-spacing: 1px;">Мій настрій</h2>
+
+            {% if graph %}
+                <div style="width: 105%; display: flex; justify-content: center;">
+                    <img src="data:image/png;base64,{{ graph }}"
+                         alt="Графік настрою"
+                         style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05);">
+                </div>
+            {% endif %}
+
+            <p style="margin-top: 25px; font-size: 14px; color: #666; font-style: italic; text-align: center;">
+                * Графік відображає динаміку твоїх емоцій за останній час.
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}

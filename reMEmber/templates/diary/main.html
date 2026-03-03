@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reMEmber — Збережи свої спогади</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+</head>
+<body class="app-body" style="justify-content: center; padding-bottom: 50px;">
+
+    <div class="logo">reMEmber</div>
+
+    <div class="block" style="max-width: 600px;">
+        <div style="padding: 20px;">
+
+            <h1 style="color: white; margin-top: 0; font-family: 'Verdana', sans-serif; font-size: 32px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); text-align: center;">
+                Твій особистий простір
+            </h1>
+
+            <p style="color: white; font-size: 18px; line-height: 1.6; text-align: justify; margin-bottom: 30px; text-shadow: 1px 1px 3px rgba(0,0,0,0.9);">
+                <strong>reMEmber</strong> — це більше, ніж просто нотатки. Це безпечне місце для твоїх думок, емоцій та переживань. Створений як цифровий щоденник, він допомагає фіксувати важливі події, відслідковувати свій стан та ділитися своєю історією.
+            </p>
+
+            <ul style="text-align: left; color: white; font-size: 16px; margin-bottom: 40px; line-height: 1.8; text-shadow: 1px 1px 3px rgba(0,0,0,0.9); list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">❤️Веди особисті записи або роби їх публічними</li>
+                <li style="margin-bottom: 10px;">❤️Слідкуй за графіком свого настрою</li>
+                <li style="margin-bottom: 10px;">❤️Додавай пісні, які асоціюються з моментами</li>
+            </ul>
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <a href="{% url 'signup' %}" class="btn" style="text-decoration: none;">Створити щоденник</a>
+                <a href="{% url 'log_in' %}" class="btn" style="text-decoration: none;">У мене вже є акаунт</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

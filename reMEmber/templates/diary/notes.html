@@ -1,0 +1,101 @@
+{% extends 'base_app.html' %}
+
+{% block page_title %}Стрічка публікацій{% endblock %}
+
+{% block content %}
+<div class="notes-grid">
+
+    {% for note in page_obj %}
+    <div class="square-card">
+
+        <div class="card-header">
+            <span style="color: #111;">@{{ note.author.username|default:"Анонім" }}</span>
+            <span>{{ note.created_at|date:"d.m.y" }}</span>
+        </div>
+
+        <div class="card-mood">
+            {{ note.mood.emoji|default:"📝" }}
+        </div>
+
+        <div class="card-text">
+            {% if note.text|length > 40 %}
+                <details style="width: 100%;">
+                    <summary style="cursor: pointer; font-weight: bold; line-height: 1.4; list-style: none; outline: none; margin-bottom: 5px;">
+                        {{ note.text|truncatechars:40 }} <span style="font-size: 12px; margin-left: 5px; color: #666;">V</span>
+                    </summary>
+                    <div style="font-weight: normal; white-space: pre-wrap; line-height: 1.4; border-top: 1px dashed rgba(0,0,0,0.05); padding-top: 10px;">
+                        {{ note.text }}
+                    </div>
+                </details>
+            {% else %}
+                <div style="font-weight: bold; line-height: 1.4;">{{ note.text }}</div>
+            {% endif %}
+        </div>
+
+        <div class="card-footer">
+
+            <div style="flex-grow: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-right: 10px;">
+                {% if note.song %}
+                    <b>🎵 {{ note.song.title }}</b>
+                    {% if note.song.url %}
+                        <a href="{{ note.song.url }}" target="_blank" style="text-decoration: none; margin-left: 5px;">▶</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+
+                <a href="{% url 'like_note' note.id %}" style="text-decoration: none; font-size: 20px; color: #333; display: flex; align-items: center; gap: 5px;" title="Подобається">
+                    {% if request.user in note.likes.all %}
+                        ❤️
+                    {% else %}
+                        🤍
+                    {% endif %}
+                    <span style="font-size: 16px; font-weight: bold;">{{ note.likes.count }}</span>
+                </a>
+
+                {% if request.user == note.author %}
+                <a href="{% url 'edit_note' note.pk %}" style="text-decoration: none; display: flex; align-items: center;" title="Редагувати">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="black" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; margin-top: 40px; color: white; opacity: 0.8; font-style: italic; text-shadow: 1px 1px 2px black;">
+        У публічній стрічці поки немає записів.
+    </div>
+    {% endfor %}
+
+</div>
+
+{% if page_obj.has_other_pages %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; background-color: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="width: auto; padding: 10px 15px; font-size: 14px;">Назад</a>
+    {% else %}
+        <div style="width: 80px;"></div>
+    {% endif %}
+
+    <span style="color: white; font-weight: bold; text-shadow: 1px 1px 2px black;">
+        Стор. {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn" style="width: auto; padding: 10px 15px; font-size: 14px;">Вперед</a>
+    {% else %}
+        <div style="width: 80px;"></div>
+    {% endif %}
+</div>
+{% endif %}
+
+<style>
+    details > summary::-webkit-details-marker { display: none; }
+</style>
+{% endblock %}

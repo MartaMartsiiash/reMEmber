@@ -1,0 +1,48 @@
+{% extends 'base_app.html' %}
+{% load static %}
+
+{% block page_title %}Мій Профіль{% endblock %}
+
+{% block content %}
+<div class="block" style="margin: 0 auto; margin-top: 20px;">
+
+    <div class="user-info">
+        <div class="avatar-container">
+            <img src="{{ user.avatar }}" alt="Avatar" class="profile-avatar">
+        </div>
+        <div class="display-name">{{ user.username }}</div>
+        <div class="display-location">{{ user.location|default:"Локація не вказана" }}</div>
+    </div>
+
+    <div class="edit-form-container" style="background-color: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+        <div class="section-label" style="text-align: center;">Редагувати дані</div>
+        <form method="post">
+            {% csrf_token %}
+
+            <div style="margin-bottom: 15px;">
+                <label>Ім'я користувача</label>
+                {{ form.username }}
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label>Локація</label>
+                {{ form.location }}
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-save">Зберегти</button>
+            </div>
+        </form>
+    </div>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{% url 'log_in' %}" class="btn" style="background-color: rgba(0,0,0,0.8); color: #ffffff;">Вийти з акаунта</a>
+    </div>
+
+</div>
+
+<style>
+    .edit-form-container input { width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 16px; box-sizing: border-box; background-color: rgba(255,255,255,0.9); }
+    label { display: block; margin-bottom: 8px; color: white; font-weight: bold; text-shadow: 1px 1px 2px black; font-size: 16px; margin-left: 5px;}
+</style>
+{% endblock %}
