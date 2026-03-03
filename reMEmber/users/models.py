@@ -11,6 +11,7 @@ class User(AbstractUser):
     """
     Custom user model extending Django's AbstractUser.
     """
+
     email = models.EmailField(unique=True)
     location = models.CharField(max_length=200)
 

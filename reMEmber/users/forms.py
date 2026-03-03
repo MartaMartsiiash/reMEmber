@@ -38,10 +38,16 @@ class SignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         """
-        Form metadata.
+        Meta configuration for the custom user registration form.
         """
+
         model = User
         fields = ("username", "email", "location")
+        labels = {
+            'username': "Ім'я користувача",
+            'email': "Електронна пошта",
+            'location': "Населений пункт",
+        }
 
 class ProfileForm(forms.ModelForm):
     """
@@ -52,5 +58,10 @@ class ProfileForm(forms.ModelForm):
         """
         Metadata for the Profile form.
         """
+
         model = User
         fields = ('username', 'location')
+        labels = {
+            'username': "Ім'я користувача",
+            'location': "Населений пункт",
+        }

@@ -17,13 +17,28 @@
         {% if results %}
             {% for note in results %}
                 <div class="list-card">
-                    <div class="list-card-content">
+                    <div class="list-card-content" style="width: 100%;">
                         <div class="list-card-subtitle" style="margin-bottom: 8px; color: #666;">
                             <b>{{ note.author.username|default:"Невідомий автор" }}</b> • {{ note.created_at|date:"d.m.Y" }}
                         </div>
-                        <div class="list-card-title" style="font-size: 16px;">{{ note.text|truncatechars:100 }}</div>
+
+                        <div class="list-card-title" style="font-size: 16px; font-weight: normal;">
+                            {% if note.text|length > 40 %}
+                                <details style="width: 100%;">
+                                    <summary style="cursor: pointer; font-weight: bold; line-height: 1.4; list-style: none; outline: none; margin-bottom: 5px;">
+                                        {{ note.text|truncatechars:40 }} <span style="font-size: 12px; margin-left: 5px; color: #666;">V</span>
+                                    </summary>
+                                    <div style="font-weight: normal; white-space: pre-wrap; line-height: 1.4; border-top: 1px dashed rgba(0,0,0,0.05); padding-top: 10px;">
+                                        {{ note.text }}
+                                    </div>
+                                </details>
+                            {% else %}
+                                <div style="font-weight: bold; line-height: 1.4;">{{ note.text }}</div>
+                            {% endif %}
+                        </div>
+
                         {% if note.song %}
-                            <div class="list-card-subtitle" style="margin-top: 5px; font-weight: bold;">
+                            <div class="list-card-subtitle" style="margin-top: 10px; font-weight: bold;">
                                 🎵 {{ note.song.title }} - {{ note.song.artist }}
                             </div>
                         {% endif %}
@@ -53,11 +68,25 @@
                 {{ top_post.mood.emoji|default:"📝" }}
             </div>
 
-            <div class="list-card-content">
+            <div class="list-card-content" style="width: 100%;">
                 <div class="list-card-subtitle" style="margin-bottom: 8px; color: #666;">
                     <b>{{ top_post.author.username|default:"Невідомий автор" }}</b> • {{ top_post.created_at|date:"d.m.Y" }}
                 </div>
-                <div class="list-card-title" style="font-size: 18px;">{{ top_post.text }}</div>
+
+                <div class="list-card-title" style="font-size: 16px; font-weight: normal;">
+                    {% if top_post.text|length > 40 %}
+                        <details style="width: 100%;">
+                            <summary style="cursor: pointer; font-weight: bold; line-height: 1.4; list-style: none; outline: none; margin-bottom: 5px;">
+                                {{ top_post.text|truncatechars:40 }} <span style="font-size: 12px; margin-left: 5px; color: #666;">V</span>
+                            </summary>
+                            <div style="font-weight: normal; white-space: pre-wrap; line-height: 1.4; border-top: 1px dashed rgba(0,0,0,0.05); padding-top: 10px;">
+                                {{ top_post.text }}
+                            </div>
+                        </details>
+                    {% else %}
+                        <div style="font-weight: bold; line-height: 1.4;">{{ top_post.text }}</div>
+                    {% endif %}
+                </div>
 
                 {% if top_post.song %}
                     <div class="list-card-subtitle" style="margin-top: 10px; font-weight: bold;">
@@ -71,4 +100,8 @@
     {% endif %}
 
 </div>
+
+<style>
+    details > summary::-webkit-details-marker { display: none; }
+</style>
 {% endblock %}

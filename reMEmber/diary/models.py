@@ -41,6 +41,7 @@ class Quote(models.Model):
     """
     Represents a short quote.
     """
+
     text = models.TextField()
 
     def __str__(self):

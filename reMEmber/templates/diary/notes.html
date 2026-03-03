@@ -31,7 +31,9 @@
                 <div style="font-weight: bold; line-height: 1.4;">{{ note.text }}</div>
             {% endif %}
         </div>
+
         <div class="card-footer">
+
             <div style="flex-grow: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-right: 10px;">
                 {% if note.song %}
                     <b>🎵 {{ note.song.title }}</b>
@@ -41,11 +43,27 @@
                 {% endif %}
             </div>
 
-            {% if request.user == note.author %}
-            <a href="{% url 'edit_note' note.pk %}" style="text-decoration: none;" title="Редагувати">
-                <svg viewBox="0 0 24 24" width="18" height="18" stroke="black" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-            </a>
-            {% endif %}
+            <div style="display: flex; align-items: center; gap: 15px;">
+
+                <a href="{% url 'like_note' note.id %}" style="text-decoration: none; font-size: 20px; color: #333; display: flex; align-items: center; gap: 5px;" title="Подобається">
+                    {% if request.user in note.likes.all %}
+                        ❤️
+                    {% else %}
+                        🤍
+                    {% endif %}
+                    <span style="font-size: 16px; font-weight: bold;">{{ note.likes.count }}</span>
+                </a>
+
+                {% if request.user == note.author %}
+                <a href="{% url 'edit_note' note.pk %}" style="text-decoration: none; display: flex; align-items: center;" title="Редагувати">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="black" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </a>
+                {% endif %}
+
+            </div>
         </div>
 
     </div>
@@ -76,4 +94,8 @@
     {% endif %}
 </div>
 {% endif %}
+
+<style>
+    details > summary::-webkit-details-marker { display: none; }
+</style>
 {% endblock %}

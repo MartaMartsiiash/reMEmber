@@ -38,6 +38,8 @@ def log_in(request):
             form.add_error(None, "Неправильні дані для входу")
     else:
         form = AuthenticationForm()
+    form.fields['username'].label = "Ім'я користувача"
+    form.fields['password'].label = "Пароль"
     return render(request, 'users/login.html', {'form': form})
 
 @login_required

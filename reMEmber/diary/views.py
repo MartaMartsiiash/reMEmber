@@ -11,6 +11,7 @@ from .models import Note, Quote, Song
 from .forms import NoteForm
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 import io
 import base64
 
@@ -19,8 +20,6 @@ def main(request):
     """
     Render the main page of the diary application.
     """
-    if request.user.is_authenticated:
-        return redirect('notes_feed')
     return render(request, 'diary/main.html')
 
 @login_required
@@ -104,15 +103,18 @@ def statistics(request):
     plt.switch_backend('Agg')
     plt.figure(figsize=(10, 5))
     df['mood'].value_counts().plot(kind='bar', color=['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'])
-    plt.title('Мій настрій за весь час')
-    plt.ylabel('Кількість днів')
+    plt.title('Мій настрій за весь час', fontsize=16)
+    plt.ylabel('Кількість днів', fontsize=12)
+    plt.xlabel('Тип настрою', fontsize=12)
     plt.xticks(rotation=45)
+    plt.gca().yaxis.set_major_locator(MaxNLocator(integer=True))
     plt.tight_layout()
     buffer = io.BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
     graph = base64.b64encode(buffer.read()).decode('utf-8')
     buffer.close()
+    plt.close()
     return render(request, 'diary/statistics.html', {
         'mood_counts': mood_counts,
         'graph': graph
@@ -123,7 +125,7 @@ def notes_feed(request):
     """
     Display paginated feed of public notes.
     """
-    notes_list = Note.objects.filter(is_public=True).order_by('-created_at')
+    notes_list = Note.objects.filter(is_public=True).prefetch_related('likes').order_by('-created_at')
     paginator = Paginator(notes_list, 10)
     page_obj = paginator.get_page(request.GET.get('page'))
     return render(request, 'diary/notes.html', {'page_obj': page_obj})
@@ -145,5 +147,17 @@ def note_detail(request, pk):
     """
     note_item = get_object_or_404(Note, pk=pk)
     if not note_item.is_public and note_item.author != request.user:
-        return redirect('notes_feed')
+        return redirect('notes')
     return render(request, 'diary/note.html', {'note': note_item})
+
+@login_required
+def like_note(request, pk):
+    """
+    Toggle like status for a note.
+    """
+    note = get_object_or_404(Note, pk=pk)
+    if note.likes.filter(id=request.user.id).exists():
+        note.likes.remove(request.user)
+    else:
+        note.likes.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER', 'notes'))

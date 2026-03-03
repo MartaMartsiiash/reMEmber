@@ -18,4 +18,5 @@ urlpatterns = [
     path('statistics/', views.statistics, name='statistics'),
     path('songs/', views.songs_list, name='songs'),
     path('menu/', views.menu, name='menu'),
+    path('note/<int:pk>/like/', views.like_note, name='like_note'),
 ]

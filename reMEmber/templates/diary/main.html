@@ -1,43 +1,40 @@
-{% extends 'base_app.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reMEmber — Збережи свої спогади</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+</head>
+<body class="app-body" style="justify-content: center; padding-bottom: 50px;">
 
-{% block content %}
-<div class="about-container" style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-    <h1 style="color: #4e73df; text-align: center;">Про проєкт reMEmber 📖</h1>
+    <div class="logo">reMEmber</div>
 
-    <p style="font-size: 1.2rem; line-height: 1.6; text-align: center; color: #555;">
-        <strong>reMEmber</strong> — це твій особистий цифровий простір для збереження думок, емоцій та музичних спогадів.
-    </p>
+    <div class="block" style="max-width: 600px;">
+        <div style="padding: 20px;">
 
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+            <h1 style="color: white; margin-top: 0; font-family: 'Verdana', sans-serif; font-size: 32px; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); text-align: center;">
+                Твій особистий простір
+            </h1>
 
-    <div class="features">
-        <h3 style="color: #1cc88a;">Що ти можеш тут робити?</h3>
-        <ul style="line-height: 2;">
-            <li><strong>Вести щоденник:</strong> Записуй події дня та роби їх приватними або публічними.</li>
-            <li><strong>Фіксувати настрій:</strong> Обирай емоцію дня для подальшого аналізу.</li>
-            <li><strong>Музичний супровід:</strong> Додавай пісню, яка стала саундтреком твого дня.</li>
-            <li><strong>Аналізувати:</strong> Переглядай візуальну статистику свого настрою за допомогою графіків.</li>
-        </ul>
-    </div>
+            <p style="color: white; font-size: 18px; line-height: 1.6; text-align: justify; margin-bottom: 30px; text-shadow: 1px 1px 3px rgba(0,0,0,0.9);">
+                <strong>reMEmber</strong> — це більше, ніж просто нотатки. Це безпечне місце для твоїх думок, емоцій та переживань. Створений як цифровий щоденник, він допомагає фіксувати важливі події, відслідковувати свій стан та ділитися своєю історією.
+            </p>
 
-    <div class="tech-stack" style="background-color: #f8f9fc; padding: 20px; border-radius: 10px; margin-top: 30px;">
-        <h3 style="color: #36b9cc; margin-top: 0;">Технології проєкту:</h3>
-        <p>Цей додаток побудований на сучасному стеку Python-розробки:</p>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <span style="background: #e74a3b; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Django 5.1</span>
-            <span style="background: #4e73df; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Pandas</span>
-            <span style="background: #f6c23e; color: black; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Matplotlib</span>
-            <span style="background: #5a5c69; color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">SQLite</span>
+            <ul style="text-align: left; color: white; font-size: 16px; margin-bottom: 40px; line-height: 1.8; text-shadow: 1px 1px 3px rgba(0,0,0,0.9); list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">❤️Веди особисті записи або роби їх публічними</li>
+                <li style="margin-bottom: 10px;">❤️Слідкуй за графіком свого настрою</li>
+                <li style="margin-bottom: 10px;">❤️Додавай пісні, які асоціюються з моментами</li>
+            </ul>
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <a href="{% url 'signup' %}" class="btn" style="text-decoration: none;">Створити щоденник</a>
+                <a href="{% url 'log_in' %}" class="btn" style="text-decoration: none;">У мене вже є акаунт</a>
+            </div>
+
         </div>
     </div>
 
-    <div style="margin-top: 40px; text-align: center;">
-        {% if not user.is_authenticated %}
-            <a href="{% url 'signup' %}" style="background-color: #4e73df; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">Приєднатися</a>
-            <a href="{% url 'log_in' %}" style="color: #4e73df; text-decoration: none; font-weight: bold;">Увійти</a>
-        {% else %}
-            <a href="{% url 'menu' %}" style="background-color: #1cc88a; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">До головного меню</a>
-        {% endif %}
-    </div>
-</div>
-{% endblock %}
+</body>
+</html>

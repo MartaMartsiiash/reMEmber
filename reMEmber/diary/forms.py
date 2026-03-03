@@ -11,6 +11,7 @@ class NoteForm(forms.ModelForm):
     """
     Form for creating and editing notes.
     """
+
     song_title = forms.CharField(label="Назва пісні", max_length=150, required=False)
     song_artist = forms.CharField(label="Виконавець", max_length=150, required=False)
     song_url = forms.URLField(label="Посилання на пісню", required=False)
@@ -25,6 +26,7 @@ class NoteForm(forms.ModelForm):
         """
         Metadata for NoteForm.
         """
+
         model = Note
         fields = ('text', 'mood', 'is_public')
         widgets = {
