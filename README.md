@@ -3,8 +3,8 @@
 
 **reMEmber** is a digital war diary platform where memories are preserved, shared, and truly felt — not imagined.
 
-It allows users to write privately for themselves or publish publicly for everyone.  
-The platform gives soldiers the opportunity to share frontline realities, and civilians the chance to understand real experiences.
+It allows users to write privately for themselves or publish publicly for everyone.
+The platform gives both military personnel and civilians — including witnesses and those directly affected by war — a space to share their lived experiences, preserve their memories, and speak about realities that must not be silenced.
 
 ---
 
@@ -28,7 +28,7 @@ The platform gives soldiers the opportunity to share frontline realities, and ci
 | 💬 Quote of the Day | Daily meaningful quote |
 | 📊 Mood Statistics | Track emotional patterns across posts |
 | 🎶 Songs Library | List of songs used in posts |
-| 👤 User Profile | Personal profile with activity overview |
+| 👤 User Profile | Personal profile that you can edit and add photo |
 | 🧭 7 Navigation Pages | Structured menu for easy navigation |
 
 ---
@@ -59,7 +59,7 @@ Database Layer (SQLite3)
 ```
 
 ### 🔹 Presentation Layer
-- Feed page
+- Feed of publications
 - Authentication (Login / Register)
 - Profile page
 - Post creation & editing
@@ -187,13 +187,12 @@ http://127.0.0.1:8000/
 
 ## 🎯 Target Audience
 
-- Soldiers documenting frontline experiences  
+- Soldiers and people who have faced war documenting frontline experiences  
 - Civilians who want to understand real wartime reality  
 - Anyone who believes memories must not be silenced  
 
 ---
 
-## 📖 Philosophy
 
 Some realities cannot be silenced.  
 Some memories must be preserved.  
