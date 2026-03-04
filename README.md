@@ -28,7 +28,7 @@ The platform gives both military personnel and civilians — including witnesses
 | 💬 Quote of the Day | Daily meaningful quote |
 | 📊 Mood Statistics | Track emotional patterns across posts |
 | 🎶 Songs Library | List of songs used in posts |
-| 👤 User Profile | Personal profile that you can edit and add photo |
+| 👤 User Profile | Personal profile that you can edit |
 | 🧭 7 Navigation Pages | Structured menu for easy navigation |
 
 ---
